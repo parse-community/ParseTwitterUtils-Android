@@ -31,14 +31,26 @@ public class DefaultOAuthProvider extends AbstractOAuthProvider {
 
     private static final long serialVersionUID = 1L;
 
+    private transient HttpURLConnectionClient httpURLConnectionClient;
+
     public DefaultOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
             String authorizationWebsiteUrl) {
         super(requestTokenEndpointUrl, accessTokenEndpointUrl, authorizationWebsiteUrl);
+        this.httpURLConnectionClient = HttpURLConnectionClient.create();
     }
 
-    protected HttpRequest createRequest(String endpointUrl) throws MalformedURLException,
-            IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(endpointUrl).openConnection();
+    public DefaultOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
+            String authorizationWebsiteUrl, HttpURLConnectionClient httpURLConnectionClient) {
+        super(requestTokenEndpointUrl, accessTokenEndpointUrl, authorizationWebsiteUrl);
+        this.httpURLConnectionClient = httpURLConnectionClient;
+    }
+
+    public void setHttpURLConnectionClient(HttpURLConnectionClient httpURLConnectionClient) {
+        this.httpURLConnectionClient = httpURLConnectionClient;
+    }
+
+    protected HttpRequest createRequest(String endpointUrl) throws Exception {
+        HttpURLConnection connection = httpURLConnectionClient.open(new URL(endpointUrl));
         connection.setRequestMethod("POST");
         connection.setAllowUserInteraction(false);
         connection.setRequestProperty("Content-Length", "0");

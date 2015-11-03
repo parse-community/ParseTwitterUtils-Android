@@ -8,12 +8,14 @@
  */
 package com.parse.twitter;
 
+import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
+import com.parse.internal.signpost.basic.DefaultOAuthProvider;
+import com.parse.internal.signpost.basic.HttpURLConnectionClient;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
-import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
@@ -23,8 +25,9 @@ import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.internal.signpost.OAuthConsumer;
 import com.parse.internal.signpost.OAuthProvider;
 import com.parse.internal.signpost.commonshttp.CommonsHttpOAuthConsumer;
-import com.parse.internal.signpost.commonshttp.CommonsHttpOAuthProvider;
 import com.parse.internal.signpost.http.HttpParameters;
+
+import java.net.HttpURLConnection;
 
 public class Twitter {
   private static final String USER_AGENT = "Parse Android SDK";
@@ -48,6 +51,8 @@ public class Twitter {
   private String authTokenSecret;
   private String userId;
   private String screenName;
+
+  private final HttpURLConnectionClient httpURLConnectionClient = HttpURLConnectionClient.create();
 
   public Twitter(String consumerKey, String consumerSecret) {
     this.consumerKey = consumerKey;
@@ -114,6 +119,16 @@ public class Twitter {
     }
   }
 
+  public void signRequest(HttpURLConnection request) {
+    OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
+    consumer.setTokenWithSecret(getAuthToken(), getAuthTokenSecret());
+    try {
+      consumer.sign(request);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public void authorize(final Context context, final AsyncCallback callback) {
     if (getConsumerKey() == null || getConsumerKey().length() == 0 || getConsumerSecret() == null
         || getConsumerSecret().length() == 0) {
@@ -121,14 +136,10 @@ public class Twitter {
           "Twitter must be initialized with a consumer key and secret before authorization.");
     }
 
-    final OAuthProvider provider = new CommonsHttpOAuthProvider(
-        REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL,
-        // Use AndroidHttpClient due to a MITM vulnerability with Apache's default
-        // HostnameVerifier through HttpClient.
-        //TODO (grantland): Re-use same HttpClient everywhere. We can't do this now due to packaging.
-        AndroidHttpClient.newInstance(USER_AGENT, context));
-    final OAuthConsumer consumer = new CommonsHttpOAuthConsumer(getConsumerKey(),
-        getConsumerSecret());
+    final OAuthProvider provider = new DefaultOAuthProvider(REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL,
+      httpURLConnectionClient);
+    provider.setRequestHeader("User-Agent", USER_AGENT);
+    final OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
 
     final ProgressDialog progress = new ProgressDialog(context);
     progress.setMessage("Loading...");
