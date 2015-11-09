@@ -11,7 +11,7 @@ Download [the latest JAR][latest] or define in Gradle:
 
 ```groovy
 dependencies {
-  compile 'com.parse:parsetwitterutils-android:1.10.3'
+  compile 'com.parse:parsetwitterutils-android:1.10.3@aar'
 }
 ```
 
