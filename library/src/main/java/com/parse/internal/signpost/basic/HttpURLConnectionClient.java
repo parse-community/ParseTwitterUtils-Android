@@ -1,6 +1,5 @@
 package com.parse.internal.signpost.basic;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -28,7 +27,7 @@ public final class HttpURLConnectionClient {
             final Method okUrlFactoryOpen = okUrlFactoryClass.getMethod("open", URL.class);
             return new HttpURLConnectionClient(true, okUrlFactory, okUrlFactoryOpen);
         } catch (Exception e) {
-            return new HttpURLConnectionClient(true, null, null);
+            return new HttpURLConnectionClient(false, null, null);
         }
     }
 
