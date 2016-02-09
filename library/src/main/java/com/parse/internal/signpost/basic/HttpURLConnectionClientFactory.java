@@ -10,9 +10,13 @@ public class HttpURLConnectionClientFactory {
 
     public static HttpURLConnectionClient create() {
         try {
-            return new OkHttpUrlConnectionClient();
+            return new OkHttp3UrlConnectionClient();
         } catch (Exception e) {
-            return new NativeHttpURLConnectionClient();
+            try {
+                return new OkHttpUrlConnectionClient();
+            } catch (Exception e1) {
+                return new NativeHttpURLConnectionClient();
+            }
         }
     }
 }
