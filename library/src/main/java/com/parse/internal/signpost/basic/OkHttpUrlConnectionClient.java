@@ -7,11 +7,12 @@ import java.net.URL;
 /**
  * Created by vjames19 on 2/8/16.
  */
-public final class OkHttpUrlConnectionClient implements HttpURLConnectionClient {
+public class OkHttpURLConnectionClient implements HttpURLConnectionClient {
+
     private final Object okUrlFactory;
     private final Method okUrlFactoryOpen;
 
-    public OkHttpUrlConnectionClient() throws Exception {
+    OkHttpURLConnectionClient() throws Exception {
         Class okHttpClientClass = Class.forName("com.squareup.okhttp.OkHttpClient");
         Object okHttpClient = okHttpClientClass.getConstructor().newInstance();
         Class okUrlFactoryClass = Class.forName("com.squareup.okhttp.OkUrlFactory");
