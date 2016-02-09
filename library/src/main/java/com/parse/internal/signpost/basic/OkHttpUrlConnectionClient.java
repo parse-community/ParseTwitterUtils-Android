@@ -4,10 +4,7 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by vjames19 on 2/8/16.
- */
-public class OkHttpURLConnectionClient implements HttpURLConnectionClient {
+final class OkHttpURLConnectionClient implements HttpURLConnectionClient {
 
     private final Object okUrlFactory;
     private final Method okUrlFactoryOpen;

@@ -10,9 +10,6 @@ import okhttp3.mockwebserver.MockWebServer;
 
 import static junit.framework.Assert.assertEquals;
 
-/**
- * Created by vjames19 on 2/9/16.
- */
 public class NativeHttpURLConnectionClientTest {
 
     @Rule public MockWebServer server = new MockWebServer();
