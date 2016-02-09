@@ -245,11 +245,11 @@ public class Twitter {
     task.execute();
   }
 
-  private static class HttpURLClientLazySingletonHolder {
-    static final HttpURLConnectionClient INSTANCE = HttpURLConnectionClient.create();
-  }
-
   private HttpURLConnectionClient getHttpUrlConnectionClientInstance() {
     return HttpURLClientLazySingletonHolder.INSTANCE;
+  }
+
+  private static class HttpURLClientLazySingletonHolder {
+    static final HttpURLConnectionClient INSTANCE = HttpURLConnectionClient.create();
   }
 }
