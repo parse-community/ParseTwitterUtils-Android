@@ -109,7 +109,7 @@ uploadArchives {
         pom.project {
             name 'ParseTwitterUtils-Android'
             artifactId = 'parsetwitterutils-android'
-            packaging 'jar'
+            packaging 'aar'
             description 'A utility library to authenticate ParseUsers with Twitter'
             url 'https://github.com/ParsePlatform/ParseTwitterUtils-Android'
 
