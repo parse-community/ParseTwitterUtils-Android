@@ -224,7 +224,7 @@ bintray {
         repo = 'maven'
         name = 'ParseTwitterUtils-Android'
         userOrg = 'parse'
-        licenses = ['BSD License']
+        licenses = ['BSD']
         vcsUrl = projGitLink
         version {
             name = project.version
