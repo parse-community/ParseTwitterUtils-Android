@@ -9,7 +9,7 @@ ext {
     projName = 'ParseTwitterUtils-Android'
     projArtifact = 'parsetwitterutils-android'
     projDescription = 'A utility library to authenticate ParseUsers with Twitter'
-    projGitLink = 'https://github.com/ParsePlatform/ParseTwitterUtils-Android'
+    projGitLink = 'https://github.com/parse-community/ParseTwitterUtils-Android'
 }
 
 buildscript {
@@ -103,15 +103,15 @@ def ossrhPassword = hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : System.gete
 
 def pomConfig = {
    scm {
-     connection 'scm:git@github.com:ParsePlatform/ParseTwitterUtils-Android.git'
-     developerConnection 'scm:git@github.com:ParsePlatform/ParseTwitterUtils-Android.git'
+     connection 'scm:git@github.com:parse-community/ParseTwitterUtils-Android.git'
+     developerConnection 'scm:git@github.com:parse-community/ParseTwitterUtils-Android.git'
      url projGitLink
    }
 
    licenses {
      license {
        name 'BSD License'
-       url 'https://github.com/ParsePlatform/ParseTwitterUtils-Android/blob/master/LICENSE'
+       url 'https://github.com/parse-community/ParseTwitterUtils-Android/blob/master/LICENSE'
        distribution 'repo'
      }
    }
