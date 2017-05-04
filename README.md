@@ -11,7 +11,7 @@ Download [the latest JAR][latest] or define in Gradle:
 
 ```groovy
 dependencies {
-  compile 'com.parse:parsetwitterutils-android:1.10.5'
+  compile 'com.parse:parsetwitterutils-android:1.10.6'
 }
 ```
 
@@ -46,7 +46,7 @@ We want to make contributing to this project as easy and transparent as possible
     All rights reserved.
 
     This source code is licensed under the BSD-style license found in the
-    LICENSE file in the root directory of this source tree. An additional grant 
+    LICENSE file in the root directory of this source tree. An additional grant
     of patent rights can be found in the PATENTS file in the same directory.
 
 As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
