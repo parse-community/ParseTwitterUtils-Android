@@ -1,35 +1,38 @@
 branches:
   only:
-    - master
-
+  - master
 language: android
 sudo: false
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-25.0.2
-    - android-25
-    - doc-25
-    - extra-android-support
-    - extra-android-m2repository
-
+  - tools
+  - platform-tools
+  - build-tools-25.0.2
+  - android-25
+  - doc-25
+  - extra-android-support
+  - extra-android-m2repository
 before_install:
-    - pip install --user codecov
-
+- pip install --user codecov
 script:
-  - ./gradlew clean testDebugUnitTest jacocoTestReport --info
-
+- "./gradlew clean testDebugUnitTest jacocoTestReport --info"
 after_success:
-  - ./gradlew coveralls
-  - codecov
-  - ./scripts/publish_snapshot.sh
-
+- "./gradlew coveralls"
+- codecov
+- "./scripts/publish_snapshot.sh"
 cache:
   directories:
-    - $HOME/.gradle
-    - $HOME/.m2/repository
+  - "$HOME/.gradle"
+  - "$HOME/.m2/repository"
+env:
+  matrix:
+    secure: RJzYZTlnOpEe1MdhfXvxru6E+0f2H0ycJYNudUGNriCWkspUS6ovwh7N2g94wppw3P2mdJdnzMcqk4JObT+SyGU6GXLqhglbMB/ylMk3bH60Y6NnVyjo3osSJXC4qz5twG4lERkkklVDcl6om8n8RV7HToaOTnakjhPhFamfZD0m8DGu3+8zFwkw/8InkU+6sm5S+F84umjg/AQ1Zt/ELtZm+1taLlFfSGjxVUywZrMDKYIN9ahyBa2L4X89CRiSsE2J/UQ+2OBnt09Kl9Z1hxJAl4Ko2uvkDpLFAOGxrtXzaFQqwYY/LtmZ036rfmnHit/UWFCJcJfJH4C7ybjDbfnBP0GNknZBlRThLX/pDmHrww7wQ9WBoCw2JOldoeFxK6RAfMx89ZuT3nCTekKIR3sToDdyYLD+LeIGE0by2igAq25hw+CNm4UolI6BG4v4yFAoQDsA1f+LugOk+kIHtRQJF/zSOgVCsum879zf4VoDEa/tm/rEtggVk7ChutP/kuL6NQGY84gthNQ3VyRlZ7hGKeTIJx8MKM+6bOLqGlv3uGWjFO62XSdu35KoLL6qYLHtXW5hiQpT/ReKdPvtmOAvE11rY81C9fzBdk2Yt6EeiEb/ryJ2K/t8eQK3MKwzB6futXJVs2FJvRMtBEkmsE4tXHnnYn7fYRXBFl4HeRw=
+deploy:
+  provider: script
+  script: ./gradlew bintrayUpload
+  skip_cleanup: true
+  on:
+    branch:master
+    tags: true
