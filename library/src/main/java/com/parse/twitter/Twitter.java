@@ -8,24 +8,25 @@
  */
 package com.parse.twitter;
 
-import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
-import com.parse.internal.signpost.basic.DefaultOAuthProvider;
-import com.parse.internal.signpost.basic.HttpURLConnectionClient;
-import org.apache.http.client.methods.HttpUriRequest;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
-import com.parse.oauth.OAuth1FlowDialog;
-import com.parse.oauth.OAuth1FlowException;
-import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.internal.signpost.OAuthConsumer;
 import com.parse.internal.signpost.OAuthProvider;
+import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
+import com.parse.internal.signpost.basic.DefaultOAuthProvider;
+import com.parse.internal.signpost.basic.HttpURLConnectionClient;
+import com.parse.internal.signpost.basic.HttpURLConnectionClientFactory;
 import com.parse.internal.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import com.parse.internal.signpost.http.HttpParameters;
+import com.parse.oauth.OAuth1FlowDialog;
+import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
+import com.parse.oauth.OAuth1FlowException;
+
+import org.apache.http.client.methods.HttpUriRequest;
 
 import java.net.HttpURLConnection;
 
@@ -52,7 +53,7 @@ public class Twitter {
   private String userId;
   private String screenName;
 
-  private final HttpURLConnectionClient httpURLConnectionClient = HttpURLConnectionClient.create();
+  private final HttpURLConnectionClient httpURLConnectionClient = HttpURLConnectionClientFactory.create();
 
   public Twitter(String consumerKey, String consumerSecret) {
     this.consumerKey = consumerKey;

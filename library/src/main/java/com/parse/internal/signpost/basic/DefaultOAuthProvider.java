@@ -10,14 +10,13 @@
  */
 package com.parse.internal.signpost.basic;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.parse.internal.signpost.AbstractOAuthProvider;
 import com.parse.internal.signpost.http.HttpRequest;
 import com.parse.internal.signpost.http.HttpResponse;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 /**
@@ -36,7 +35,7 @@ public class DefaultOAuthProvider extends AbstractOAuthProvider {
     public DefaultOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
             String authorizationWebsiteUrl) {
         super(requestTokenEndpointUrl, accessTokenEndpointUrl, authorizationWebsiteUrl);
-        this.httpURLConnectionClient = HttpURLConnectionClient.create();
+        this.httpURLConnectionClient = HttpURLConnectionClientFactory.create();
     }
 
     public DefaultOAuthProvider(String requestTokenEndpointUrl, String accessTokenEndpointUrl,
