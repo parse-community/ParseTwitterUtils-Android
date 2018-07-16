@@ -8,7 +8,6 @@
  */
 package com.parse.oauth;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -31,7 +31,7 @@ import android.widget.LinearLayout;
 /**
  * For internal use.
  */
-public class OAuth1FlowDialog extends Dialog {
+public class OAuth1FlowDialog extends AppCompatDialog {
   private static final FrameLayout.LayoutParams FILL = new FrameLayout.LayoutParams(
       ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
   private final String callbackUrl;
