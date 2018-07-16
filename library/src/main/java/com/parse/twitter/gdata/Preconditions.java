@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.parse.internal.gdata;
+package com.parse.twitter.gdata;
 
 import java.util.NoSuchElementException;
 

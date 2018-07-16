@@ -6,9 +6,8 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-package com.parse.oauth;
+package com.parse.twitter.oauth;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -31,7 +31,7 @@ import android.widget.LinearLayout;
 /**
  * For internal use.
  */
-public class OAuth1FlowDialog extends Dialog {
+public class OAuth1FlowDialog extends AppCompatDialog {
   private static final FrameLayout.LayoutParams FILL = new FrameLayout.LayoutParams(
       ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
   private final String callbackUrl;
@@ -113,16 +113,16 @@ public class OAuth1FlowDialog extends Dialog {
     content.addView(webViewContainer);
   }
 
-  public static interface FlowResultHandler {
+  public interface FlowResultHandler {
     /**
      * Called when the user cancels the dialog.
      */
-    public void onCancel();
+    void onCancel();
 
     /**
      * Called when the dialog's web view receives an error.
      */
-    public void onError(int errorCode, String description, String failingUrl);
+    void onError(int errorCode, String description, String failingUrl);
 
     /**
      * Called when the dialog portion of the flow is complete.
@@ -131,7 +131,7 @@ public class OAuth1FlowDialog extends Dialog {
      *          The final URL called back (including any query string appended
      *          by the server).
      */
-    public void onComplete(String callbackUrl);
+    void onComplete(String callbackUrl);
   }
 
   private class OAuth1WebViewClient extends WebViewClient {

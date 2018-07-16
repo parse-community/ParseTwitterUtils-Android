@@ -6,11 +6,15 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-package com.parse;
+package com.parse.twitter;
 
 import android.content.Context;
 
-import com.parse.twitter.Twitter;
+import com.parse.AuthenticationCallback;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.Map;
 import java.util.concurrent.CancellationException;
@@ -23,12 +27,14 @@ import bolts.Task;
  * Provides a set of utilities for using Parse with Twitter.
  */
 public final class ParseTwitterUtils {
-  /* package */ static final String AUTH_TYPE = "twitter";
+  private static final String AUTH_TYPE = "twitter";
+
+  private static final String CALLBACK_URL = "twittersdk://";
 
   private static final Object lock = new Object();
-  /* package for tests */ static boolean isInitialized;
-  /* package for tests */ static TwitterController controller;
-  /* package for tests */ static ParseUserDelegate userDelegate = new ParseUserDelegateImpl();
+  static boolean isInitialized;
+  static TwitterController controller;
+  static ParseUserDelegate userDelegate = new ParseUserDelegateImpl();
 
   private static TwitterController getTwitterController() {
     synchronized (lock) {
@@ -51,20 +57,35 @@ public final class ParseTwitterUtils {
   /**
    * Initializes Twitter for use with Parse. This method must be invoked prior to calling
    * {@link #link(ParseUser, Context, SaveCallback)} and {@link #logIn(Context, LogInCallback)}.
-   * 
+   *
    * @param consumerKey
    *          Your Twitter consumer key.
    * @param consumerSecret
    *          Your Twitter consumer secret.
    */
   public static void initialize(String consumerKey, String consumerSecret) {
+    initialize(consumerKey, consumerSecret, CALLBACK_URL);
+  }
+
+  /**
+   * Initializes Twitter for use with Parse. This method must be invoked prior to calling
+   * {@link #link(ParseUser, Context, SaveCallback)} and {@link #logIn(Context, LogInCallback)}.
+   *
+   * @param consumerKey
+   *          Your Twitter consumer key.
+   * @param consumerSecret
+   *          Your Twitter consumer secret.
+   * @param callbackUrl
+   *          the callback url
+   */
+  public static void initialize(String consumerKey, String consumerSecret, String callbackUrl) {
     synchronized (lock) {
       if (isInitialized) {
         return;
       }
 
       if (controller == null) {
-        Twitter twitter = new Twitter(consumerKey, consumerSecret);
+        Twitter twitter = new Twitter(consumerKey, consumerSecret, callbackUrl);
         controller = new TwitterController(twitter);
       } else {
         controller.initialize(consumerKey, consumerSecret);
@@ -115,7 +136,7 @@ public final class ParseTwitterUtils {
     checkInitialization();
     return getTwitterController().authenticateAsync(context).onSuccessTask(new Continuation<Map<String, String>, Task<Void>>() {
       @Override
-      public Task<Void> then(Task<Map<String, String>> task) throws Exception {
+      public Task<Void> then(Task<Map<String, String>> task) {
         return user.linkWithInBackground(AUTH_TYPE, task.getResult());
       }
     });
@@ -133,7 +154,7 @@ public final class ParseTwitterUtils {
    * Links a ParseUser to a Twitter account, allowing you to use Twitter for authentication, and
    * providing access to Twitter data for the user. A dialog will be shown to the user for Twitter
    * authentication.
-   * 
+   *
    * @param user
    *          The user to link to a Twitter account.
    * @param context
@@ -190,7 +211,7 @@ public final class ParseTwitterUtils {
    * Links a ParseUser to a Twitter account, allowing you to use Twitter for authentication, and
    * providing access to Twitter data for the user. This method allows you to handle getting the
    * auth tokens for your users, rather than delegating to the provided dialog log-in.
-   * 
+   *
    * @param user
    *          The user to link to a Twitter account.
    * @param twitterId
@@ -247,7 +268,7 @@ public final class ParseTwitterUtils {
    * credentials does not already exist, a new user will be created. This method allows you to
    * handle getting the auth tokens for your users, rather than delegating to the provided dialog
    * log-in.
-   * 
+   *
    * @param twitterId
    *          The user's Twitter ID.
    * @param screenName
@@ -283,7 +304,7 @@ public final class ParseTwitterUtils {
     checkInitialization();
     return getTwitterController().authenticateAsync(context).onSuccessTask(new Continuation<Map<String, String>, Task<ParseUser>>() {
       @Override
-      public Task<ParseUser> then(Task<Map<String, String>> task) throws Exception {
+      public Task<ParseUser> then(Task<Map<String, String>> task) {
         return userDelegate.logInWithInBackground(AUTH_TYPE, task.getResult());
       }
     });
@@ -293,7 +314,7 @@ public final class ParseTwitterUtils {
    * Logs in a ParseUser using Twitter for authentication. If a user for the given Twitter
    * credentials does not already exist, a new user will be created. A dialog will be shown to the
    * user for Twitter authentication.
-   * 
+   *
    * @param context
    *          An Android context from which the login dialog can be launched.
    * @param callback
@@ -450,7 +471,7 @@ public final class ParseTwitterUtils {
     // do nothing
   }
 
-  /* package for tests */ interface ParseUserDelegate {
+  interface ParseUserDelegate {
     void registerAuthenticationCallback(String authType, AuthenticationCallback callback);
     Task<ParseUser> logInWithInBackground(String authType, Map<String, String> authData);
   }

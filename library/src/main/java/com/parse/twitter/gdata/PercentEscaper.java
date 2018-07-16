@@ -14,7 +14,7 @@
  */
 
 
-package com.parse.internal.gdata;
+package com.parse.twitter.gdata;
 
 /**
  * A {@code UnicodeEscaper} that escapes some set of Java characters using

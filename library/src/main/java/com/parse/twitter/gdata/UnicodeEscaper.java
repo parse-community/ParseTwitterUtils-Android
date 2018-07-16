@@ -14,9 +14,9 @@
  */
 
 
-package com.parse.internal.gdata;
+package com.parse.twitter.gdata;
 
-import static com.parse.internal.gdata.Preconditions.checkNotNull;
+import static com.parse.twitter.gdata.Preconditions.checkNotNull;
 
 import java.io.IOException;
 
@@ -252,7 +252,7 @@ public abstract class UnicodeEscaper implements Escaper {
    *
    */
   public Appendable escape(final Appendable out) {
-    checkNotNull(out);
+    Preconditions.checkNotNull(out);
 
     return new Appendable() {
       int pendingHighSurrogate = -1;

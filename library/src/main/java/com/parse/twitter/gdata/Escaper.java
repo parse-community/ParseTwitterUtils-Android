@@ -14,7 +14,7 @@
  */
 
 
-package com.parse.internal.gdata;
+package com.parse.twitter.gdata;
 
 /**
  * An object that converts literal text into a format safe for inclusion in a

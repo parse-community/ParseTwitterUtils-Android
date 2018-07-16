@@ -6,19 +6,18 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-package com.parse;
+package com.parse.twitter;
 
 import android.content.Context;
 
-import com.parse.twitter.AsyncCallback;
-import com.parse.twitter.Twitter;
+import com.parse.ParseException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import bolts.Task;
 
-/** package */ class TwitterController {
+class TwitterController {
 
   private static final String CONSUMER_KEY_KEY = "consumer_key";
   private static final String CONSUMER_SECRET_KEY = "consumer_secret";
@@ -32,7 +31,7 @@ import bolts.Task;
   private Task<Map<String, String>>.TaskCompletionSource currentTcs;
 
   public TwitterController() {
-    this(new Twitter("", ""));
+    this(new Twitter("", "", ""));
   }
 
   public TwitterController(Twitter twitter) {
