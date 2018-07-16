@@ -18,7 +18,7 @@ import java.util.Map;
 
 import bolts.Task;
 
-/** package */ class TwitterController {
+class TwitterController {
 
   private static final String CONSUMER_KEY_KEY = "consumer_key";
   private static final String CONSUMER_SECRET_KEY = "consumer_secret";

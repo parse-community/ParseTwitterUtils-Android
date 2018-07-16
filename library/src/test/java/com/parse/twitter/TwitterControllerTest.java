@@ -12,6 +12,7 @@ import android.content.Context;
 
 import com.parse.twitter.AsyncCallback;
 import com.parse.twitter.Twitter;
+import com.parse.twitter.TwitterController;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -28,9 +28,9 @@ public final class ParseTwitterUtils {
   private static final String CALLBACK_URL = "twittersdk://";
 
   private static final Object lock = new Object();
-  /* package for tests */ static boolean isInitialized;
-  /* package for tests */ static TwitterController controller;
-  /* package for tests */ static ParseUserDelegate userDelegate = new ParseUserDelegateImpl();
+  static boolean isInitialized;
+  static TwitterController controller;
+  static ParseUserDelegate userDelegate = new ParseUserDelegateImpl();
 
   private static TwitterController getTwitterController() {
     synchronized (lock) {
@@ -467,7 +467,7 @@ public final class ParseTwitterUtils {
     // do nothing
   }
 
-  /* package for tests */ interface ParseUserDelegate {
+  interface ParseUserDelegate {
     void registerAuthenticationCallback(String authType, AuthenticationCallback callback);
     Task<ParseUser> logInWithInBackground(String authType, Map<String, String> authData);
   }

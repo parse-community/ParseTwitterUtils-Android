@@ -10,6 +10,9 @@ package com.parse;
 
 import android.content.Context;
 
+import com.parse.twitter.ParseTwitterUtils;
+import com.parse.twitter.TwitterController;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

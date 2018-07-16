@@ -13,9 +13,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
-import com.parse.oauth.OAuth1FlowDialog;
-import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
-import com.parse.oauth.OAuth1FlowException;
+import com.parse.twitter.oauth.OAuth1FlowDialog;
+import com.parse.twitter.oauth.OAuth1FlowDialog.FlowResultHandler;
+import com.parse.twitter.oauth.OAuth1FlowException;
 
 import oauth.signpost.http.HttpParameters;
 import okhttp3.HttpUrl;
@@ -24,9 +24,9 @@ import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
 
 public class Twitter {
 
-  static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
-  static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authenticate";
-  static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
+  private static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
+  private static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authenticate";
+  private static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
 
   private static final String VERIFIER_PARAM = "oauth_verifier";
   private static final String USER_ID_PARAM = "user_id";
