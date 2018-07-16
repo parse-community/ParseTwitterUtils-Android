@@ -51,7 +51,7 @@ We want to make contributing to this project as easy and transparent as possible
 
 As of April 5, 2017, Parse, LLC has transferred this code to the parse-community organization, and will no longer be contributing to or distributing this code.
 
- [guide]: https://parse.com/docs/android/guide#users-twitter-users
+ [guide]: https://docs.parseplatform.org/android/guide/#twitter-users
 
  [latest]: https://search.maven.org/remote_content?g=com.parse&a=parsetwitterutils&v=LATEST
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/
