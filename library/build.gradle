@@ -13,6 +13,7 @@ android {
 
 dependencies {
     api 'oauth.signpost:signpost-core:1.2.1.2'
+    api 'se.akerfeldt:okhttp-signpost:1.1.0'
     api 'com.parse:parse-android:1.17.3'
 
     testImplementation 'junit:junit:4.12'

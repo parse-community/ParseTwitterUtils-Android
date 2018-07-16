@@ -113,16 +113,16 @@ public class OAuth1FlowDialog extends Dialog {
     content.addView(webViewContainer);
   }
 
-  public static interface FlowResultHandler {
+  public interface FlowResultHandler {
     /**
      * Called when the user cancels the dialog.
      */
-    public void onCancel();
+    void onCancel();
 
     /**
      * Called when the dialog's web view receives an error.
      */
-    public void onError(int errorCode, String description, String failingUrl);
+    void onError(int errorCode, String description, String failingUrl);
 
     /**
      * Called when the dialog portion of the flow is complete.
@@ -131,7 +131,7 @@ public class OAuth1FlowDialog extends Dialog {
      *          The final URL called back (including any query string appended
      *          by the server).
      */
-    public void onComplete(String callbackUrl);
+    void onComplete(String callbackUrl);
   }
 
   private class OAuth1WebViewClient extends WebViewClient {

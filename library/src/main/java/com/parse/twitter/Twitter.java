@@ -10,7 +10,6 @@ package com.parse.twitter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
@@ -18,20 +17,16 @@ import com.parse.oauth.OAuth1FlowDialog;
 import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.oauth.OAuth1FlowException;
 
-import java.net.HttpURLConnection;
-
-import oauth.signpost.OAuthConsumer;
-import oauth.signpost.OAuthProvider;
-import oauth.signpost.basic.DefaultOAuthConsumer;
-import oauth.signpost.basic.DefaultOAuthProvider;
 import oauth.signpost.http.HttpParameters;
+import okhttp3.HttpUrl;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthProvider;
 
 public class Twitter {
-  private static final String USER_AGENT = "Parse Android SDK";
 
-  private static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
-  private static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authenticate";
-  private static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
+  static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
+  static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authenticate";
+  static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
 
   private static final String VERIFIER_PARAM = "oauth_verifier";
   private static final String USER_ID_PARAM = "user_id";
@@ -104,16 +99,6 @@ public class Twitter {
     this.screenName = screenName;
   }
 
-  public void signRequest(HttpURLConnection request) {
-    OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
-    consumer.setTokenWithSecret(getAuthToken(), getAuthTokenSecret());
-    try {
-      consumer.sign(request);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   public void authorize(final Context context, final AsyncCallback callback) {
     if (getConsumerKey() == null || getConsumerKey().length() == 0 || getConsumerSecret() == null
         || getConsumerSecret().length() == 0) {
@@ -121,14 +106,29 @@ public class Twitter {
           "Twitter must be initialized with a consumer key and secret before authorization.");
     }
 
-    final OAuthProvider provider = new DefaultOAuthProvider(REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL);
-    provider.setRequestHeader("User-Agent", USER_AGENT);
-    final OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
+    final OkHttpOAuthProvider provider = new OkHttpOAuthProvider(REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL);
+    final OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(getConsumerKey(), getConsumerSecret());
 
     final ProgressDialog progress = new ProgressDialog(context);
     progress.setMessage("Loading...");
     AsyncTask<Void, Void, String> task = new AsyncTask<Void, Void, String>() {
       private Throwable error;
+
+      @Override
+      protected void onPreExecute() {
+        super.onPreExecute();
+        progress.show();
+      }
+
+      @Override
+      protected String doInBackground(Void... params) {
+        try {
+          return provider.retrieveRequestToken(consumer, callbackUrl);
+        } catch (Throwable e) {
+          error = e;
+        }
+        return null;
+      }
 
       @Override
       protected void onPostExecute(String result) {
@@ -150,8 +150,8 @@ public class Twitter {
                 @Override
                 public void onComplete(String callbackUrl) {
                   CookieSyncManager.getInstance().sync();
-                  Uri uri = Uri.parse(callbackUrl);
-                  final String verifier = uri.getQueryParameter(VERIFIER_PARAM);
+                  HttpUrl url = HttpUrl.parse(callbackUrl);
+                  final String verifier = url.queryParameter(VERIFIER_PARAM);
                   if (verifier == null) {
                     callback.onCancel();
                     return;
@@ -210,22 +210,6 @@ public class Twitter {
         } finally {
           progress.dismiss();
         }
-      }
-
-      @Override
-      protected void onPreExecute() {
-        super.onPreExecute();
-        progress.show();
-      }
-
-      @Override
-      protected String doInBackground(Void... params) {
-        try {
-          return provider.retrieveRequestToken(consumer, callbackUrl);
-        } catch (Throwable e) {
-          error = e;
-        }
-        return null;
       }
     };
     task.execute();
