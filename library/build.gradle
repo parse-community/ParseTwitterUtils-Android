@@ -7,11 +7,12 @@ android {
         minSdkVersion 14
         targetSdkVersion 27
         versionCode 1
-        versionName project.version
+        versionName "1.0"
     }
 }
 
 dependencies {
+    api 'oauth.signpost:signpost-core:1.2.1.2'
     api 'com.parse:parse-android:1.17.3'
 
     testImplementation 'junit:junit:4.12'
@@ -26,7 +27,7 @@ jacoco {
     toolVersion "0.7.1.201405082137"
 }
 
-task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
 

@@ -132,7 +132,7 @@ public final class ParseTwitterUtils {
     checkInitialization();
     return getTwitterController().authenticateAsync(context).onSuccessTask(new Continuation<Map<String, String>, Task<Void>>() {
       @Override
-      public Task<Void> then(Task<Map<String, String>> task) throws Exception {
+      public Task<Void> then(Task<Map<String, String>> task) {
         return user.linkWithInBackground(AUTH_TYPE, task.getResult());
       }
     });
@@ -300,7 +300,7 @@ public final class ParseTwitterUtils {
     checkInitialization();
     return getTwitterController().authenticateAsync(context).onSuccessTask(new Continuation<Map<String, String>, Task<ParseUser>>() {
       @Override
-      public Task<ParseUser> then(Task<Map<String, String>> task) throws Exception {
+      public Task<ParseUser> then(Task<Map<String, String>> task) {
         return userDelegate.logInWithInBackground(AUTH_TYPE, task.getResult());
       }
     });

@@ -14,17 +14,17 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
-import com.parse.internal.signpost.OAuthConsumer;
-import com.parse.internal.signpost.OAuthProvider;
-import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
-import com.parse.internal.signpost.basic.DefaultOAuthProvider;
-import com.parse.internal.signpost.basic.HttpURLConnectionClient;
-import com.parse.internal.signpost.http.HttpParameters;
 import com.parse.oauth.OAuth1FlowDialog;
 import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.oauth.OAuth1FlowException;
 
 import java.net.HttpURLConnection;
+
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.OAuthProvider;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthProvider;
+import oauth.signpost.http.HttpParameters;
 
 public class Twitter {
   private static final String USER_AGENT = "Parse Android SDK";
@@ -47,8 +47,6 @@ public class Twitter {
   private String authTokenSecret;
   private String userId;
   private String screenName;
-
-  private final HttpURLConnectionClient httpURLConnectionClient = HttpURLConnectionClient.create();
 
   public Twitter(String consumerKey, String consumerSecret, String callbackUrl) {
     this.consumerKey = consumerKey;
@@ -123,8 +121,7 @@ public class Twitter {
           "Twitter must be initialized with a consumer key and secret before authorization.");
     }
 
-    final OAuthProvider provider = new DefaultOAuthProvider(REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL,
-      httpURLConnectionClient);
+    final OAuthProvider provider = new DefaultOAuthProvider(REQUEST_TOKEN_URL, ACCESS_TOKEN_URL, AUTHORIZE_URL);
     provider.setRequestHeader("User-Agent", USER_AGENT);
     final OAuthConsumer consumer = new DefaultOAuthConsumer(getConsumerKey(), getConsumerSecret());
 
