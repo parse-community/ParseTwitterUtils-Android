@@ -19,13 +19,10 @@ import com.parse.internal.signpost.OAuthProvider;
 import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
 import com.parse.internal.signpost.basic.DefaultOAuthProvider;
 import com.parse.internal.signpost.basic.HttpURLConnectionClient;
-import com.parse.internal.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import com.parse.internal.signpost.http.HttpParameters;
 import com.parse.oauth.OAuth1FlowDialog;
 import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.oauth.OAuth1FlowException;
-
-import org.apache.http.client.methods.HttpUriRequest;
 
 import java.net.HttpURLConnection;
 
@@ -107,16 +104,6 @@ public class Twitter {
 
   public void setScreenName(String screenName) {
     this.screenName = screenName;
-  }
-
-  public void signRequest(HttpUriRequest request) {
-    OAuthConsumer consumer = new CommonsHttpOAuthConsumer(getConsumerKey(), getConsumerSecret());
-    consumer.setTokenWithSecret(getAuthToken(), getAuthTokenSecret());
-    try {
-      consumer.sign(request);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
   }
 
   public void signRequest(HttpURLConnection request) {
