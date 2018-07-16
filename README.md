@@ -2,6 +2,7 @@
 [![Build Status][build-status-svg]][build-status-link]
 [![Coverage Status][coverage-status-svg]][coverage-status-link]
 [![License][license-svg]][license-link]
+[![](https://jitpack.io/v/parse-community/ParseTwitterUtils-Android.svg)](https://jitpack.io/#parse-community/ParseTwitterUtils-Android)
 
 A utility library to authenticate `ParseUser`s with Twitter.
 
@@ -61,12 +62,11 @@ As of April 5, 2017, Parse, LLC has transferred this code to the parse-community
 
  [guide]: https://docs.parseplatform.org/android/guide/#twitter-users
 
- [latest]: https://search.maven.org/remote_content?g=com.parse&a=parsetwitterutils&v=LATEST
- [snap]: https://oss.sonatype.org/content/repositories/snapshots/
+ [build-status-svg]: https://travis-ci.org/parse-community/ParseTwitterUtils-Android.svg?branch=master
+ [build-status-link]: https://travis-ci.org/parse-community/ParseTwitterUtils-Android
 
- [build-status-svg]: https://travis-ci.org/ParsePlatform/ParseTwitterUtils-Android.svg?branch=master
- [build-status-link]: https://travis-ci.org/ParsePlatform/ParseTwitterUtils-Android
- [coverage-status-svg]: https://coveralls.io/repos/ParsePlatform/ParseTwitterUtils-Android/badge.svg?branch=master&service=github
- [coverage-status-link]: https://coveralls.io/github/ParsePlatform/ParseTwitterUtils-Android?branch=master
+ [coverage-status-svg]: https://img.shields.io/codecov/c/github/parse-community/ParseTwitterUtils-Android/master.svg
+ [coverage-status-link]: https://coveralls.io/github/parse-community/ParseTwitterUtils-Android?branch=master
+
  [license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg
  [license-link]: https://github.com/ParsePlatform/ParseTwitterUtils-Android/blob/master/LICENSE
