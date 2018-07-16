@@ -6,11 +6,15 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-package com.parse;
+package com.parse.twitter;
 
 import android.content.Context;
 
-import com.parse.twitter.Twitter;
+import com.parse.AuthenticationCallback;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.Map;
 import java.util.concurrent.CancellationException;
