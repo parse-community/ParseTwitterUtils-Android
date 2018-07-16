@@ -47,7 +47,7 @@ ParseTwitterUtils.logIn(this, new LogInCallback() {
 ```
 
 ## How Do I Contribute?
-We want to make contributing to this project as easy and transparent as possible. Please refer to the [Contribution Guidelines](CONTRIBUTING.md).
+We want to make contributing to this project as easy and transparent as possible. Please refer to the [Contribution Guidelines](https://github.com/parse-community/Parse-SDK-Android/blob/master/CONTRIBUTING.md).
 
 ## License
     Copyright (c) 2015-present, Parse, LLC.
@@ -68,7 +68,5 @@ As of April 5, 2017, Parse, LLC has transferred this code to the parse-community
  [build-status-link]: https://travis-ci.org/ParsePlatform/ParseTwitterUtils-Android
  [coverage-status-svg]: https://coveralls.io/repos/ParsePlatform/ParseTwitterUtils-Android/badge.svg?branch=master&service=github
  [coverage-status-link]: https://coveralls.io/github/ParsePlatform/ParseTwitterUtils-Android?branch=master
- [maven-svg]: https://maven-badges.herokuapp.com/maven-central/com.parse/parsetwitterutils/badge.svg?style=flat
- [maven-link]: https://maven-badges.herokuapp.com/maven-central/com.parse/parsetwitterutils
  [license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg
  [license-link]: https://github.com/ParsePlatform/ParseTwitterUtils-Android/blob/master/LICENSE
