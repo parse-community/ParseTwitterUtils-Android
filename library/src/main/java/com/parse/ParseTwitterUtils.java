@@ -23,7 +23,9 @@ import bolts.Task;
  * Provides a set of utilities for using Parse with Twitter.
  */
 public final class ParseTwitterUtils {
-  /* package */ static final String AUTH_TYPE = "twitter";
+  private static final String AUTH_TYPE = "twitter";
+
+  private static final String CALLBACK_URL = "twittersdk://";
 
   private static final Object lock = new Object();
   /* package for tests */ static boolean isInitialized;
@@ -51,20 +53,35 @@ public final class ParseTwitterUtils {
   /**
    * Initializes Twitter for use with Parse. This method must be invoked prior to calling
    * {@link #link(ParseUser, Context, SaveCallback)} and {@link #logIn(Context, LogInCallback)}.
-   * 
+   *
    * @param consumerKey
    *          Your Twitter consumer key.
    * @param consumerSecret
    *          Your Twitter consumer secret.
    */
   public static void initialize(String consumerKey, String consumerSecret) {
+    initialize(consumerKey, consumerSecret, CALLBACK_URL);
+  }
+
+  /**
+   * Initializes Twitter for use with Parse. This method must be invoked prior to calling
+   * {@link #link(ParseUser, Context, SaveCallback)} and {@link #logIn(Context, LogInCallback)}.
+   *
+   * @param consumerKey
+   *          Your Twitter consumer key.
+   * @param consumerSecret
+   *          Your Twitter consumer secret.
+   * @param callbackUrl
+   *          the callback url
+   */
+  public static void initialize(String consumerKey, String consumerSecret, String callbackUrl) {
     synchronized (lock) {
       if (isInitialized) {
         return;
       }
 
       if (controller == null) {
-        Twitter twitter = new Twitter(consumerKey, consumerSecret);
+        Twitter twitter = new Twitter(consumerKey, consumerSecret, callbackUrl);
         controller = new TwitterController(twitter);
       } else {
         controller.initialize(consumerKey, consumerSecret);
@@ -133,7 +150,7 @@ public final class ParseTwitterUtils {
    * Links a ParseUser to a Twitter account, allowing you to use Twitter for authentication, and
    * providing access to Twitter data for the user. A dialog will be shown to the user for Twitter
    * authentication.
-   * 
+   *
    * @param user
    *          The user to link to a Twitter account.
    * @param context
@@ -190,7 +207,7 @@ public final class ParseTwitterUtils {
    * Links a ParseUser to a Twitter account, allowing you to use Twitter for authentication, and
    * providing access to Twitter data for the user. This method allows you to handle getting the
    * auth tokens for your users, rather than delegating to the provided dialog log-in.
-   * 
+   *
    * @param user
    *          The user to link to a Twitter account.
    * @param twitterId
@@ -247,7 +264,7 @@ public final class ParseTwitterUtils {
    * credentials does not already exist, a new user will be created. This method allows you to
    * handle getting the auth tokens for your users, rather than delegating to the provided dialog
    * log-in.
-   * 
+   *
    * @param twitterId
    *          The user's Twitter ID.
    * @param screenName
@@ -293,7 +310,7 @@ public final class ParseTwitterUtils {
    * Logs in a ParseUser using Twitter for authentication. If a user for the given Twitter
    * credentials does not already exist, a new user will be created. A dialog will be shown to the
    * user for Twitter authentication.
-   * 
+   *
    * @param context
    *          An Android context from which the login dialog can be launched.
    * @param callback

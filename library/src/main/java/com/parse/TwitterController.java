@@ -32,7 +32,7 @@ import bolts.Task;
   private Task<Map<String, String>>.TaskCompletionSource currentTcs;
 
   public TwitterController() {
-    this(new Twitter("", ""));
+    this(new Twitter("", "", ""));
   }
 
   public TwitterController(Twitter twitter) {

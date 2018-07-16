@@ -8,24 +8,24 @@
  */
 package com.parse.twitter;
 
-import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
-import com.parse.internal.signpost.basic.DefaultOAuthProvider;
-import com.parse.internal.signpost.basic.HttpURLConnectionClient;
-import org.apache.http.client.methods.HttpUriRequest;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.webkit.CookieSyncManager;
 
-import com.parse.oauth.OAuth1FlowDialog;
-import com.parse.oauth.OAuth1FlowException;
-import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
 import com.parse.internal.signpost.OAuthConsumer;
 import com.parse.internal.signpost.OAuthProvider;
+import com.parse.internal.signpost.basic.DefaultOAuthConsumer;
+import com.parse.internal.signpost.basic.DefaultOAuthProvider;
+import com.parse.internal.signpost.basic.HttpURLConnectionClient;
 import com.parse.internal.signpost.commonshttp.CommonsHttpOAuthConsumer;
 import com.parse.internal.signpost.http.HttpParameters;
+import com.parse.oauth.OAuth1FlowDialog;
+import com.parse.oauth.OAuth1FlowDialog.FlowResultHandler;
+import com.parse.oauth.OAuth1FlowException;
+
+import org.apache.http.client.methods.HttpUriRequest;
 
 import java.net.HttpURLConnection;
 
@@ -40,11 +40,10 @@ public class Twitter {
   private static final String USER_ID_PARAM = "user_id";
   private static final String SCREEN_NAME_PARAM = "screen_name";
 
-  private static final String CALLBACK_URL = "twitter-oauth://complete";
-
   // App configuration for enabling authentication.
   private String consumerKey;
   private String consumerSecret;
+  private String callbackUrl;
 
   // User information.
   private String authToken;
@@ -54,9 +53,10 @@ public class Twitter {
 
   private final HttpURLConnectionClient httpURLConnectionClient = HttpURLConnectionClient.create();
 
-  public Twitter(String consumerKey, String consumerSecret) {
+  public Twitter(String consumerKey, String consumerSecret, String callbackUrl) {
     this.consumerKey = consumerKey;
     this.consumerSecret = consumerSecret;
+    this.callbackUrl = callbackUrl;
   }
 
   public String getConsumerKey() {
@@ -155,7 +155,7 @@ public class Twitter {
             return;
           }
           CookieSyncManager.createInstance(context);
-          OAuth1FlowDialog dialog = new OAuth1FlowDialog(context, result, CALLBACK_URL,
+          OAuth1FlowDialog dialog = new OAuth1FlowDialog(context, result, callbackUrl,
               "api.twitter", new FlowResultHandler() {
 
                 @Override
@@ -237,7 +237,7 @@ public class Twitter {
       @Override
       protected String doInBackground(Void... params) {
         try {
-          return provider.retrieveRequestToken(consumer, CALLBACK_URL);
+          return provider.retrieveRequestToken(consumer, callbackUrl);
         } catch (Throwable e) {
           error = e;
         }
