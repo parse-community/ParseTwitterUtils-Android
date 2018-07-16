@@ -40,7 +40,7 @@ public class Twitter {
   private static final String USER_ID_PARAM = "user_id";
   private static final String SCREEN_NAME_PARAM = "screen_name";
 
-  private static final String CALLBACK_URL = "twitter-oauth://complete";
+  private static final String CALLBACK_URL = "twittersdk://";
 
   // App configuration for enabling authentication.
   private String consumerKey;
