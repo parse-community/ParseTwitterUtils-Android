@@ -9,9 +9,9 @@
 package com.parse.twitter;
 
 public interface AsyncCallback {
-  void onSuccess(Object result);
+    void onSuccess(Object result);
 
-  void onCancel();
+    void onCancel();
 
-  void onFailure(Throwable error);
+    void onFailure(Throwable error);
 }
