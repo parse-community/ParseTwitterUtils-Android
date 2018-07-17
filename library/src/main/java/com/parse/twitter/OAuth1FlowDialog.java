@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialog;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -52,6 +53,7 @@ class OAuth1FlowDialog extends AppCompatDialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.parse_twitter_dialog_login);
         webView = findViewById(R.id.webView);
         progress = findViewById(R.id.progress);
@@ -60,7 +62,6 @@ class OAuth1FlowDialog extends AppCompatDialog {
         webView.setHorizontalScrollBarEnabled(false);
         webView.setWebViewClient(new OAuth1WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setVisibility(View.INVISIBLE);
         webView.loadUrl(requestUrl);
     }
 
@@ -116,7 +117,6 @@ class OAuth1FlowDialog extends AppCompatDialog {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             progress.setVisibility(View.GONE);
-            webView.setVisibility(View.VISIBLE);
         }
     }
 }
