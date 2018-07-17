@@ -1,6 +1,5 @@
 # Parse Twitter Utils for Android
 [![Build Status][build-status-svg]][build-status-link]
-[![Coverage Status][coverage-status-svg]][coverage-status-link]
 [![License][license-svg]][license-link]
 [![](https://jitpack.io/v/parse-community/ParseTwitterUtils-Android.svg)](https://jitpack.io/#parse-community/ParseTwitterUtils-Android)
 
@@ -29,6 +28,7 @@ dependencies {
 ## Usage
 Extensive docs can be found in the [guide][guide]. The basic steps are:
 ```java
+// in Application.onCreate(); or somewhere similar
 ParseTwitterUtils.initialize("YOUR CONSUMER KEY", "YOUR CONSUMER SECRET");
 ```
 Then later, when your user taps the login button:
@@ -65,8 +65,5 @@ As of April 5, 2017, Parse, LLC has transferred this code to the parse-community
  [build-status-svg]: https://travis-ci.org/parse-community/ParseTwitterUtils-Android.svg?branch=master
  [build-status-link]: https://travis-ci.org/parse-community/ParseTwitterUtils-Android
 
- [coverage-status-svg]: https://img.shields.io/codecov/c/github/parse-community/ParseTwitterUtils-Android/master.svg
- [coverage-status-link]: https://coveralls.io/github/parse-community/ParseTwitterUtils-Android?branch=master
-
  [license-svg]: https://img.shields.io/badge/license-BSD-lightgrey.svg
- [license-link]: https://github.com/ParsePlatform/ParseTwitterUtils-Android/blob/master/LICENSE
+ [license-link]: https://github.com/parse-community/ParseTwitterUtils-Android/blob/master/LICENSE

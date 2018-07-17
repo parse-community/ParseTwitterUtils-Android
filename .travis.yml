@@ -1,6 +1,7 @@
 branches:
   only:
     - master
+    - /^v4-\d+\.\d+\.\d+$/ # regex
 
 language: android
 
@@ -13,22 +14,13 @@ before_install:
     - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
 
 script:
-    - "./gradlew clean testDebugUnitTest jacocoTestReport --info"
+  - ./gradlew clean testDebugUnitTest jacocoTestReport --info
 
 after_success:
-    - "./gradlew coveralls"
-    - codecov
-    - "./scripts/publish_snapshot.sh"
+  - ./gradlew coveralls
+  - codecov
 
 cache:
   directories:
-  - "$HOME/.gradle"
-  - "$HOME/.m2/repository"
-
-deploy:
-  provider: script
-  script: ./gradlew bintrayUpload
-  skip_cleanup: true
-  on:
-    branch: master
-    tags: true
+    - $HOME/.gradle
+    - $HOME/.m2/repository
