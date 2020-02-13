@@ -1,4 +1,6 @@
-# Parse Twitter Utils for Android
+# [ARCHIVE] Parse Twitter Utils for Android
+## ParseTwitterUtils has moved to [Parse-SDK-Android](https://github.com/parse-community/Parse-SDK-Android)
+
 [![Build Status][build-status-svg]][build-status-link]
 [![License][license-svg]][license-link]
 [![](https://jitpack.io/v/parse-community/ParseTwitterUtils-Android.svg)](https://jitpack.io/#parse-community/ParseTwitterUtils-Android)
